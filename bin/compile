@@ -23,7 +23,7 @@ if !Dir.exists?(cache_dir)
 end
 
 if !Dir.exists?("#{cache_dir}/fuse")
-	Dir.chdir(cache_dir)
+	Dir.chdir(cache_dir) 
 	system("mkdir -p .profile.d")
 	system("echo export LD_LIBRARY_PATH=$HOME/app/fuse/lib:$LD_LIBRARY_PATH > #{cache_dir}/.profile.d/sshfs.sh")  
 	system("echo 'mkdir -p $HOME/.ssh' >> #{cache_dir}/.profile.d/sshfs.sh")
