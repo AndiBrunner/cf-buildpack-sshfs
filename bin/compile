@@ -28,7 +28,7 @@ if !Dir.exists?("#{cache_dir}/fuse")
 	system("echo export LD_LIBRARY_PATH=$HOME/app/fuse/lib:$LD_LIBRARY_PATH > #{cache_dir}/.profile.d/sshfs.sh")  
 	system("echo 'mkdir -p $HOME/.ssh' >> #{cache_dir}/.profile.d/sshfs.sh")
 	system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/.profile.d/sshfs.sh")
-	system("echo 'sshfs -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/.profile.d/sshfs.sh")
+	#system("echo 'sshfs -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/.profile.d/sshfs.sh")
 
 	#download sshfs
 	system("wget https://s3.amazonaws.com/accax/sshfs-fuse-2.4-64.tar.bz2")
@@ -43,7 +43,7 @@ system("cp -r #{cache_dir}/.profile.d #{build_dir}/")
 
 #Dir.chdir("#{build_dir}")
 #puts "$HOME=#{home}"
-#puts "-----build_dir----"
-#system("ls -al #{build_dir}")
-#puts "-----cache_dir----"
-#system("ls -al #{cache_dir}")
+puts "-----build_dir----"
+system("ls -al #{build_dir}")
+puts "-----cache_dir----"
+system("ls -al #{cache_dir}")
