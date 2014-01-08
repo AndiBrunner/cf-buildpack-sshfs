@@ -32,6 +32,7 @@ if !Dir.exists?("#{cache_dir}/fuse")
 	system("echo export LD_LIBRARY_PATH=$HOME/app/fuse/lib:$LD_LIBRARY_PATH > #{cache_dir}/fuse/start_sshfs")  
 	system("echo 'mkdir -p $HOME/.ssh' >> #{cache_dir}/fuse/start_sshfs")
 	system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/fuse/start_sshfs")
+	system("echo 'sleep 10' >> #{cache_dir}/fuse/start_sshfs")
 	#system("echo 'sshfs -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/fuse/start_sshfs")
 
 	#download sshfs
@@ -51,3 +52,5 @@ puts "-----build_dir----"
 system("ls -al #{build_dir}")
 puts "-----cache_dir----"
 system("ls -al #{cache_dir}")
+puts "-----build_dir----"
+system("cat #{build_dir}/fuse/start_sshfs")
