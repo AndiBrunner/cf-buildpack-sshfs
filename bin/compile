@@ -19,17 +19,19 @@ pwd=Dir.pwd
 #system("ls -al") 
 
 if !Dir.exists?(cache_dir)	
+	puts "-----ddddd-1 ----"
 	Dir.mkdir(cache_dir) 
 end
 
 if !Dir.exists?("#{cache_dir}/fuse")
+	puts "-----ddddd-2 ----"
 	Dir.chdir(cache_dir) 
 	#system("mkdir -p .profile.d")
 	#system("echo export LD_LIBRARY_PATH=$HOME/app/fuse/lib:$LD_LIBRARY_PATH > #{cache_dir}/.profile.d/sshfs.sh")  
 	#system("echo 'mkdir -p $HOME/.ssh' >> #{cache_dir}/.profile.d/sshfs.sh")
 	#system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/.profile.d/sshfs.sh")
 	#system("echo 'sshfs -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/.profile.d/sshfs.sh")
-	system("echo export LD_LIBRARY_PATH=$HOME/app/fuse/lib:$LD_LIBRARY_PATH > #{cache_dir}/fuse/start_sshfs")  
+	system("echo 'export LD_LIBRARY_PATH=$HOME/app/fuse/lib:$LD_LIBRARY_PATH' > #{cache_dir}/fuse/start_sshfs")  
 	system("echo 'mkdir -p $HOME/.ssh' >> #{cache_dir}/fuse/start_sshfs")
 	system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/fuse/start_sshfs")
 	system("echo 'sleep 10' >> #{cache_dir}/fuse/start_sshfs")
