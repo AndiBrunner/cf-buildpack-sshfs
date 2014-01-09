@@ -31,16 +31,17 @@ if !Dir.exists?("#{cache_dir}/fuse")
 	#system("echo 'mkdir -p $HOME/.ssh' >> #{cache_dir}/.profile.d/sshfs.sh")
 	#system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/.profile.d/sshfs.sh")
 	#system("echo 'sshfs -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/.profile.d/sshfs.sh")
-	system("echo 'export LD_LIBRARY_PATH=$HOME/app/fuse/lib:$LD_LIBRARY_PATH' > #{cache_dir}/fuse/start_sshfs")  
-	system("echo 'mkdir -p $HOME/.ssh' >> #{cache_dir}/fuse/start_sshfs")
-	system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/fuse/start_sshfs")
-	system("echo 'sleep 10' >> #{cache_dir}/fuse/start_sshfs")
 	#system("echo 'sshfs -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/fuse/start_sshfs")
 
 	#download sshfs
 	system("wget https://s3.amazonaws.com/accax/sshfs-fuse-2.4-64.tar.bz2")
 	system("tar xjvf sshfs-fuse-2.4-64.tar.bz2")
 	system("rm sshfs-fuse-2.4-64.tar.bz2")
+
+	system("echo 'export LD_LIBRARY_PATH=$HOME/app/fuse/lib:$LD_LIBRARY_PATH' > #{cache_dir}/fuse/start_sshfs")  
+	system("echo 'mkdir -p $HOME/.ssh' >> #{cache_dir}/fuse/start_sshfs")
+	system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/fuse/start_sshfs")
+	#system("echo 'sleep 10' >> #{cache_dir}/fuse/start_sshfs")
 end
 
 system("cp -r #{cache_dir}/fuse #{build_dir}/")
