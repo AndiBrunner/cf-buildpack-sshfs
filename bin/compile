@@ -26,34 +26,40 @@ end
 if !Dir.exists?("#{cache_dir}/fuse")
 	puts "-----ddddd-2 ----"
 	Dir.chdir(cache_dir) 
-	#system("mkdir -p .profile.d")
-	#system("echo export LD_LIBRARY_PATH=$HOME/app/fuse/lib:$LD_LIBRARY_PATH > #{cache_dir}/.profile.d/sshfs.sh")  
-	#system("echo 'mkdir -p $HOME/.ssh' >> #{cache_dir}/.profile.d/sshfs.sh")
-	#system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/.profile.d/sshfs.sh")
-	#system("echo 'sshfs -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/.profile.d/sshfs.sh")
-	#system("echo 'sshfs -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/fuse/start_sshfs")
 
-	#download sshfs
+		#download sshfs
 	system("wget https://s3.amazonaws.com/accax/sshfs-fuse-2.4-64.tar.bz2")
 	system("tar xjvf sshfs-fuse-2.4-64.tar.bz2")
 	system("rm sshfs-fuse-2.4-64.tar.bz2")
 
+	system("mkdir -p .profile.d")
+	#system("echo '#!/usr/bin/env bash' >> #{cache_dir}/fuse/start_sshfs") 
+	system("echo export LD_LIBRARY_PATH=$HOME/app/fuse/lib:$LD_LIBRARY_PATH > #{cache_dir}/.profile.d/sshfs.sh")  
+	system("echo 'mkdir -p $HOME/.ssh' >> #{cache_dir}/.profile.d/sshfs.sh")
+	system("echo 'mkdir -p $HOME/app/.ssh' >> #{cache_dir}/.profile.d/sshfs.sh")
+	#system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/.profile.d/sshfs.sh")
+	#system("echo 'sshfs -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/.profile.d/sshfs.sh")
+	#system("echo 'sshfs -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/fuse/start_sshfs")
+
+
+
 	system("echo '#!/usr/bin/env bash' >> #{cache_dir}/fuse/start_sshfs") 
-	system("echo 'export LD_LIBRARY_PATH=$HOME/app/fuse/lib:$LD_LIBRARY_PATH' >> #{cache_dir}/fuse/start_sshfs")  
-	system("echo 'mkdir -p $HOME/.ssh' >> #{cache_dir}/fuse/start_sshfs")
+	#system("echo 'export LD_LIBRARY_PATH=$HOME/app/fuse/lib:$LD_LIBRARY_PATH' >> #{cache_dir}/fuse/start_sshfs")  
+	#system("echo 'mkdir -p $HOME/.ssh' >> #{cache_dir}/fuse/start_sshfs")
 	#system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/fuse/start_sshfs")
 	#system("echo 'sleep 10' >> #{cache_dir}/fuse/start_sshfs")
 	system("chmod +x #{cache_dir}/fuse/start_sshfs")
 end
 
 system("cp -r #{cache_dir}/fuse #{build_dir}/")
-#system("cp -r #{cache_dir}/.profile.d #{build_dir}/")
+system("mkdir -p #{build_dir}/.profile.d")
+system("cp -r #{cache_dir}/.profile.d/* #{build_dir}/.profile.d")
 
 #home=ENV["HOME"]
 
 #Dir.chdir("#{build_dir}")
 #puts "$HOME=#{home}"
-puts "-----build_dir----"
+puts "-----home_dir----"
 system("ls -al #{build_dir}")
 puts "-----cache_dir----"
 system("ls -al #{cache_dir}")
