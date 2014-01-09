@@ -55,5 +55,6 @@ puts "-----build_dir----"
 system("ls -al #{build_dir}")
 puts "-----cache_dir----"
 system("ls -al #{cache_dir}")
-puts "-----build_dir----"
-system("cat #{build_dir}/fuse/start_sshfs")
+puts "-----fuse_dir----"
+system("ls -al #{build_dir}/fuse")
+system("ls -al #{cache_dir}/fuse")
