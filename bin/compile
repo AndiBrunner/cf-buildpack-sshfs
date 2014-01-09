@@ -54,6 +54,7 @@ if !Dir.exists?("#{cache_dir}/fuse")
 end
 
 system("cp -r #{cache_dir}/fuse #{build_dir}/")
+
 system("mkdir -p #{build_dir}/.profile.d")
 system("cp -r #{cache_dir}/.profile.d/* #{build_dir}/.profile.d")
 system("chmod +x #{build_dir}/.profile.d/*")
