@@ -49,6 +49,7 @@ if !Dir.exists?("#{cache_dir}/fuse")
 	system("echo export PATH=$HOME/app/fuse/bin:'$PATH' >> #{cache_dir}/fuse/start_sshfs")   
 	system("echo 'mkdir -p ~/.ssh' >> #{cache_dir}/fuse/start_sshfs") 
 	system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/fuse/start_sshfs") 
+	system("echo 'mkdir -p $SSHFS_MNT' >> #{cache_dir}/fuse/start_sshfs") 
 	system("echo 'sshfs -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/fuse/start_sshfs") 
 
 	system("echo '$HOME/nginx/start' >> #{cache_dir}/fuse/start_sshfs") 
