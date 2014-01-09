@@ -37,15 +37,21 @@ if !Dir.exists?("#{cache_dir}/fuse")
 	system("rm sshfs-fuse-2.4-64.tar.bz2")
 	Dir.chdir(pwd) 
 
-	system("mkdir -p #{cache_dir}/.profile.d")
-	#system("echo '#!/usr/bin/env bash' >> #{cache_dir}/fuse/start_sshfs") 
-	system("echo export LD_LIBRARY_PATH=$HOME/app/fuse/lib:'$LD_LIBRARY_PATH' > #{cache_dir}/.profile.d/sshfs.sh")  
-	system("echo 'mkdir -p ~/.ssh' >> #{cache_dir}/.profile.d/sshfs.sh")
-	system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/.profile.d/sshfs.sh")
-	system("echo 'sshfs -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/.profile.d/sshfs.sh")
-	#system("echo 'sshfs -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/fuse/start_sshfs")
+	#system("mkdir -p #{cache_dir}/.profile.d")
+
+	#system("echo export LD_LIBRARY_PATH=$HOME/app/fuse/lib:'$LD_LIBRARY_PATH' > #{cache_dir}/.profile.d/sshfs.sh")  
+	#system("echo 'mkdir -p ~/.ssh' >> #{cache_dir}/.profile.d/sshfs.sh")
+	#system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/.profile.d/sshfs.sh")
+	#system("echo 'sshfs -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/.profile.d/sshfs.sh")
 
 	system("echo '#!/usr/bin/env bash' >> #{cache_dir}/fuse/start_sshfs") 
+	system("echo export LD_LIBRARY_PATH=$HOME/app/fuse/lib:'$LD_LIBRARY_PATH' > #{cache_dir}/fuse/start_sshfs")   
+	system("echo 'mkdir -p ~/.ssh' >> #{cache_dir}/fuse/start_sshfs") 
+	system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/fuse/start_sshfs") 
+	system("echo 'sshfs -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/fuse/start_sshfs") 
+
+	system("echo '$HOME/app/nginx/start' >> #{cache_dir}/fuse/start_sshfs") 
+
 	#system("echo 'export LD_LIBRARY_PATH=$HOME/app/fuse/lib:$LD_LIBRARY_PATH' >> #{cache_dir}/fuse/start_sshfs")  
 	#system("echo 'mkdir -p $HOME/.ssh' >> #{cache_dir}/fuse/start_sshfs")
 	#system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/fuse/start_sshfs")
@@ -55,9 +61,9 @@ end
 
 system("cp -r #{cache_dir}/fuse #{build_dir}/")
 
-system("mkdir -p #{build_dir}/.profile.d")
-system("cp -r #{cache_dir}/.profile.d/* #{build_dir}/.profile.d")
-system("chmod +x #{build_dir}/.profile.d/*")
+#system("mkdir -p #{build_dir}/.profile.d")
+#system("cp -r #{cache_dir}/.profile.d/* #{build_dir}/.profile.d")
+system("chmod +x #{build_dir}/fuse/start_sshfs") 
 #home=ENV["HOME"]
 
 #Dir.chdir("#{build_dir}")
