@@ -51,8 +51,8 @@ if !Dir.exists?("#{cache_dir}/fuse")
 #	system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/fuse/start_sshfs") 
 	system("echo 'mkdir -p $SSHFS_MNT' >> #{cache_dir}/fuse/start_sshfs") 
 	system("echo 'chmod 777 $SSHFS_MNT' >> #{cache_dir}/fuse/start_sshfs") 
-	system("echo 'chown root:root $HOME/fuse/bin/fusermount' >> #{cache_dir}/fuse/start_sshfs") 
-	system("echo 'sshfs -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/fuse/start_sshfs") 
+	system("echo 'chmod 700 $HOME/.ssh/id_rsa' >> #{cache_dir}/fuse/start_sshfs") 	
+	system("echo 'sshfs -o UserKnownHostsFile=$HOME/.ssh/known_hosts -i $HOME/.ssh/id_rsa -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/fuse/start_sshfs") 
 
 	system("echo '$HOME/nginx/start' >> #{cache_dir}/fuse/start_sshfs") 
 
