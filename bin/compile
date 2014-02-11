@@ -8,16 +8,6 @@ build_dir = ARGV[0]
 cache_dir = ARGV[1]
 pwd=Dir.pwd
 
-#puts "-----build_dir----"
-#puts "build_dir=#{build_dir}" 
-#system("ls -al #{build_dir}")
-#puts "-----cache_dir----"
-#puts "cache_dir=#{cache_dir}" 
-#system("ls -al #{cache_dir}")
-#puts "-----pwd----"
-#puts "pwd=#{Dir.pwd}"
-#system("ls -al") 
-
 if !Dir.exists?(cache_dir)	
 	puts "-----ddddd-1 ----"
 	Dir.mkdir(cache_dir) 
@@ -31,35 +21,16 @@ if !Dir.exists?("#{cache_dir}/.sshfs")
 	puts "-----ddddd-2 ----"
 	Dir.chdir(cache_dir) 
 
-		#download sshfs
-	system("wget https://s3.amazonaws.com/accax/sshfs-2.4-64.tar.bz2")
-	system("tar xjvf sshfs-2.4-64.tar.bz2")
-	system("rm sshfs-2.4-64.tar.bz2")
-	Dir.chdir(pwd) 
-
-	#system("mkdir -p #{cache_dir}/.profile.d")
-
-	#system("echo export LD_LIBRARY_PATH=$HOME/app/fuse/lib:'$LD_LIBRARY_PATH' > #{cache_dir}/.profile.d/sshfs.sh")  
-	#system("echo 'mkdir -p ~/.ssh' >> #{cache_dir}/.profile.d/sshfs.sh")
-	#system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/.profile.d/sshfs.sh")
-	#system("echo 'sshfs -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/.profile.d/sshfs.sh")
 
 	system("echo '#!/usr/bin/env bash' > #{cache_dir}/.sshfs/start_sshfs") 
-	system("echo export LD_LIBRARY_PATH=$HOME/app/.sshfs/lib:'$LD_LIBRARY_PATH' >> #{cache_dir}/.sshfs/start_sshfs")   
-	system("echo export PATH=$HOME/app/.sshfs/bin:'$PATH' >> #{cache_dir}/.sshfs/start_sshfs")   
-#	system("echo 'mkdir -p ~/.ssh' >> #{cache_dir}/fuse/start_sshfs") 
-#	system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/fuse/start_sshfs") 
+	system("echo export LD_LIBRARY_PATH=/opt/fuse/bin:/opt/sshfs/lib:'$LD_LIBRARY_PATH' >> #{cache_dir}/.sshfs/start_sshfs")   
+	system("echo export PATH=/opt/fuse/bin:/opt/sshfs/bin:'$PATH' >> #{cache_dir}/.sshfs/start_sshfs")   
 	system("echo 'mkdir -p $SSHFS_MNT' >> #{cache_dir}/.sshfs/start_sshfs") 
 	system("echo 'chmod 777 $SSHFS_MNT' >> #{cache_dir}/.sshfs/start_sshfs") 
 	system("echo 'chmod 700 $HOME/.ssh/id_rsa' >> #{cache_dir}/.sshfs/start_sshfs") 	
 	system("echo 'sshfs -o UserKnownHostsFile=$HOME/.ssh/known_hosts -i $HOME/.ssh/id_rsa -o ServerAliveInterval=15 $SSHFS_RMT $SSHFS_MNT' >> #{cache_dir}/.sshfs/start_sshfs") 
 
 	system("echo '$HOME/nginx/start' >> #{cache_dir}/.sshfs/start_sshfs") 
-
-	#system("echo 'export LD_LIBRARY_PATH=$HOME/app/fuse/lib:$LD_LIBRARY_PATH' >> #{cache_dir}/fuse/start_sshfs")  
-	#system("echo 'mkdir -p $HOME/.ssh' >> #{cache_dir}/fuse/start_sshfs")
-	#system("echo 'echo $SSHFS_KEY >> $HOME/.ssh/id_rsa' >> #{cache_dir}/fuse/start_sshfs")
-	#system("echo 'sleep 10' >> #{cache_dir}/fuse/start_sshfs")
 
 end
 
